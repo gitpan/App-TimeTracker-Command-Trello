@@ -18,33 +18,22 @@ my %module_build_args = (
     "Thomas Klausner <domm\@cpan.org>"
   ],
   "dist_name" => "App-TimeTracker-Command-Trello",
-  "dist_version" => "1.000",
+  "dist_version" => "1.001",
   "license" => "perl",
   "module_name" => "App::TimeTracker::Command::Trello",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
-    "App::TimeTracker::Utils" => 0,
-    "JSON::XS" => 0,
-    "Moose::Role" => 0,
-    "Path::Class" => 0,
-    "WWW::Trello::Lite" => 0,
-    "perl" => "5.010",
-    "strict" => 0,
-    "warnings" => 0
+    "App::TimeTracker" => "2.020",
+    "WWW::Trello::Lite" => 0
   },
   "script_files" => [],
-  "test_requires" => {
-    "Test::More" => 0,
-    "lib" => 0
-  }
+  "test_requires" => {}
 );
 
 
 my %fallback_build_requires = (
-  "Module::Build" => "0.3601",
-  "Test::More" => 0,
-  "lib" => 0
+  "Module::Build" => "0.3601"
 );
 
 

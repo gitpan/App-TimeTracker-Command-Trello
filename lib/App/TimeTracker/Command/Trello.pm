@@ -6,7 +6,7 @@ use 5.010;
 # ABSTRACT: App::TimeTracker Trello plugin
 use App::TimeTracker::Utils qw(error_message warning_message);
 
-our $VERSION = "1.000";
+our $VERSION = "1.001";
 
 use Moose::Role;
 use WWW::Trello::Lite;
@@ -215,8 +215,7 @@ sub cmd_setup_trello {
     }
 
     if ( $conf->{token} ) {
-        my $token_info =
-            $self->_do_trello( 'get', 'tokens/' . $conf->{token} );
+        my $token_info = $self->trello_client->get('tokens/' . $conf->{token})->data;
         if ( $token_info->{dateExpires} ) {
             say "Token valid until: " . $token_info->{dateExpires};
         }
@@ -410,7 +409,7 @@ App::TimeTracker::Command::Trello - App::TimeTracker Trello plugin
 
 =head1 VERSION
 
-version 1.000
+version 1.001
 
 =head1 DESCRIPTION
 
