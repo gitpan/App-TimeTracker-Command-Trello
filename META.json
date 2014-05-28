@@ -4,7 +4,7 @@
       "Thomas Klausner <domm@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.017, CPAN::Meta::Converter version 2.141170",
+   "generated_by" : "Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.140640",
    "license" : [
       "perl_5"
    ],
@@ -37,9 +37,9 @@
       "repository" : {
          "type" : "git",
          "url" : "git://github.com/domm/App-TimeTracker-Trello.git",
-         "web" : "http://github.com/domm/App-TimeTracker-Trello"
+         "web" : "https://github.com/domm/App-TimeTracker-Trello"
       }
    },
-   "version" : "1.001"
+   "version" : "1.002"
 }
 

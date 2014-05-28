@@ -6,7 +6,7 @@ use 5.010;
 # ABSTRACT: App::TimeTracker Trello plugin
 use App::TimeTracker::Utils qw(error_message warning_message);
 
-our $VERSION = "1.001";
+our $VERSION = "1.002";
 
 use Moose::Role;
 use WWW::Trello::Lite;
@@ -132,13 +132,19 @@ after [ 'cmd_start', 'cmd_continue', 'cmd_append' ] => sub {
 
 after 'cmd_stop' => sub {
     my $self = shift;
-    return unless $self->has_trello;
 
     my $task = $self->_previous_task;
     return unless $task;
+
+    if (!$self->has_trello) {
+        my $oldid = $task->trello_card_id;
+        $self->trello($oldid) if $oldid;
+    }
+    return unless $self->has_trello;
+
     my $task_rounded_minutes = $task->rounded_minutes;
 
-    my $card = $self->_trello_fetch_card( $task->trello_card_id );
+    my $card = $self->_trello_fetch_card( $self->trello );
 
     unless ($card) {
         warning_message(
@@ -383,8 +389,10 @@ sub _trello_just_the_name {
     my $name = $card->{name};
     my $tr   = $self->trello;
     $name =~ s/$tr:\s?//;
-    $name =~ s/\[(.*?\])//;
-    $name =~ s/\s+//;
+    $name =~ s/\[(.*?)\]//g;
+    $name =~ s/\s+/_/g;
+    $name =~ s/_$//;
+    $name =~ s/^_//;
     return $name;
 }
 
@@ -403,13 +411,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 App::TimeTracker::Command::Trello - App::TimeTracker Trello plugin
 
 =head1 VERSION
 
-version 1.001
+version 1.002
 
 =head1 DESCRIPTION
 
